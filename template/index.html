@@ -1,1 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎯</text></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>SkillPath AI | Build Your Career</title>
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,700&display=swap" rel="stylesheet">
+
+  <style>
+    .career-font {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    letter-spacing: 1px;
+    }
+    body {
+      font-family: 'Outfit', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Glow background */
+    .glow-bg::before {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,115,0,0.25), transparent);
+      top: -120px;
+      left: -120px;
+      filter: blur(120px);
+      pointer-events: none;
+    }
+
+    .glow-bg::after {
+      content: "";
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,60,0,0.25), transparent);
+      bottom: -120px;
+      right: -120px;
+      filter: blur(120px);
+      pointer-events: none;
+    }
+
+    /* Card hover */
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 10px 40px rgba(255,115,0,0.4);
+    }
+
+    /* Button hover */
+    .btn-glow:hover {
+      box-shadow: 0 0 25px rgba(255,115,0,0.6);
+    }
+  </style>
+
+  <title>SkillPath AI</title>
+</head>
+
+<body class="glow-bg relative bg-gradient-to-br from-[#1a0000] via-[#2b0000] to-black min-h-screen text-white">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-10 py-6">
+    <h1 class="text-xl font-bold tracking-wide">
+    <span class="text-white">SkillPath</span>
+    <span class="text-orange-400"> AI</span>
+    </h1>
+
+    <a href="login.html"
+      class="bg-orange-500 px-5 py-2 rounded-lg hover:bg-orange-600 transition duration-300 btn-glow">
+      Login
+    </a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="text-center mt-24 px-4">
+
+    <h1 class="text-6xl md:text-7xl font-extrabold leading-tight">
+      Build Your
+      
+      <span class="career-font bg-gradient-to-r from-orange-300 via-orange-400 to-orange-600 text-transparent bg-clip-text">
+      Career
+       </span>
+    </h1>
+
+    <p class="mt-6 text-gray-300 text-lg max-w-xl mx-auto">
+      Upload your resume and get AI-powered career roadmap tailored just for you.
+    </p>
+
+    <button onclick="goToDashboard()"
+      class="mt-8 bg-orange-500 px-8 py-3 rounded-xl font-semibold btn-glow transition duration-300 hover:scale-105">
+      Upload Resume
+    </button>
+
+  </section>
+
+  
+
+  <!-- Script -->
+  <script>
+    function goToDashboard() {
+      window.location.href = "dashboard.html";
+    }
+  </script>
+
+</body>
+</html>
