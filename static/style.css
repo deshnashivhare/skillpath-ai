@@ -1,1 +1,23 @@
+body{
 
+background:#f5f5f5;
+
+font-family:Arial;
+
+}
+
+.upload-card{
+
+margin-top:120px;
+
+padding:40px;
+
+border-radius:15px;
+
+}
+
+.progress{
+
+height:25px;
+
+}
