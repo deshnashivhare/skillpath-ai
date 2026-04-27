@@ -1,1 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SkillPath AI | Dashboard</title>
 
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Emoji favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    .career-font {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        letter-spacing: 1px;
+      }
+    body {
+      background: linear-gradient(135deg, #1a0000, #2b0000, #000000);
+      color: white;
+    }
+
+    /* Glass card */
+    .card-ui {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .card-ui:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 10px 40px rgba(255,115,0,0.35);
+    }
+
+    /* Navbar */
+    .nav-ui {
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="nav-ui flex justify-between items-center px-6 py-4">
+  <h1 class="text-xl font-bold">
+    SkillPath <span class="text-orange-400">AI</span>
+  </h1>
+  <a href="/logout" class="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600 transition">
+    Logout
+  </a>
+</nav>
+
+<div class="max-w-6xl mx-auto p-8 space-y-8">
+
+  <!-- Heading -->
+
+  <h1 class="career-font bg-gradient-to-r from-orange-50 via-orange-100 via-orange-250 via-orange-500 via-orange-550 text-transparent bg-clip-text text-5xl font-bold text-center ">
+  Your Career Insights
+</h1>
+
+
+  <!-- DOWNLOAD BUTTON -->
+  <div class="text-center">
+    <a href="/download_pdf"
+       class="bg-orange-500 px-6 py-2 rounded-xl shadow hover:bg-orange-600 transition hover:scale-105 inline-block">
+      📄 Download PDF Report
+    </a>
+  </div>
+
+  <!-- TOP CARDS -->
+  <div class="grid md:grid-cols-3 gap-6">
+
+    <!-- Domain -->
+    <div class="card-ui p-6 text-center">
+      <h6 class="text-gray-400">Detected Domain</h6>
+      <h3 class="text-2xl font-bold text-orange-400 mt-2">{{ role }}</h3>
+    </div>
+
+    <!-- Match -->
+    <div class="card-ui p-6">
+      <h6 class="text-gray-400 mb-2">Skill Match</h6>
+
+      <div class="w-full bg-gray-700 rounded-full h-4">
+        <div id="progressBar"
+             class="bg-orange-500 h-4 rounded-full text-right pr-2 text-xs">
+          {{ match }}%
+        </div>
+      </div>
+    </div>
+
+    <!-- Probability -->
+    <div class="card-ui p-6 text-center">
+      <h6 class="text-gray-400">Job Probability</h6>
+      <h3 class="text-2xl font-bold text-orange-300 mt-2">{{ job_probability }}%</h3>
+    </div>
+
+  </div>
+
+  <!-- SKILLS -->
+  <div class="card-ui p-6">
+    <h5 class="text-orange-400 text-lg font-semibold mb-2">Your Skills</h5>
+    <p class="text-gray-300">{{ skills | join(', ') }}</p>
+  </div>
+
+  <!-- MISSING SKILLS -->
+  <div class="card-ui p-6">
+    <h5 class="text-orange-400 text-lg font-semibold mb-2">Missing Skills</h5>
+    <ul class="list-disc ml-5 text-gray-300">
+      {% for skill in missing_skills %}
+      <li>{{ skill }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- COURSES -->
+  <div class="card-ui p-6">
+    <h5 class="text-orange-400 text-lg font-semibold mb-3">Recommended Courses</h5>
+
+    {% if courses %}
+      {% for skill, levels in courses.items() %}
+        <div class="mb-4">
+          <h6 class="text-orange-300 font-semibold mb-2">{{ skill }}</h6>
+          <ul class="space-y-1">
+            {% for level, data in levels.items() %}
+            <li>
+              <span class="text-gray-300">{{ level }}:</span>
+              <a href="{{ data[1] }}" target="_blank"
+                 class="text-blue-400 hover:text-blue-300 underline">
+                {{ data[0] }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="text-gray-400">No courses needed 🎉</p>
+    {% endif %}
+  </div>
+
+  <!-- COMPANIES -->
+  <div class="card-ui p-6">
+    <h5 class="text-orange-400 text-lg font-semibold mb-2">Companies You Can Target</h5>
+
+    {% if companies %}
+    <ul class="list-disc ml-5 text-gray-300">
+      {% for company in companies %}
+      <li>{{ company }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-gray-400">No matching companies found.</p>
+    {% endif %}
+  </div>
+
+  <!-- CHART -->
+  <div class="card-ui p-6 text-center">
+    <h5 class="text-orange-400 text-lg font-semibold mb-4">Skill Analysis</h5>
+
+    <div class="w-64 h-64 mx-auto">
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+const match = Number("{{ match }}");
+const gap = 100 - match;
+
+// Progress bar
+document.getElementById("progressBar").style.width = match + "%";
+
+// Chart
+new Chart(document.getElementById('myChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Matched', 'Missing'],
+    datasets: [{
+      data: [match, gap],
+      backgroundColor: ['#f97316', '#374151']
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {
+        labels: {
+          color: 'white'
+        }
+      }
+    }
+  }
+});
+</script>
+
+</body>
+</html>
