@@ -1,1 +1,207 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillPath AI | Welcomes You</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔑</text></svg>">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: radial-gradient(circle at top, #1a0000, #000000);
+      overflow: hidden;
+    }
+  
+  .fade {
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+.show {
+  opacity: 1;
+}
+
+    /* Glow Effect */
+    .glow-bg::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255,115,0,0.3), transparent);
+  top: -100px;
+  left: -100px;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-bg::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,60,0,0.3), transparent);
+  bottom: -100px;
+  right: -100px;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+    .hover-scale {
+      transition: all 0.3s ease;
+    }
+
+    .hover-scale:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body class="glow-bg relative h-screen flex items-center justify-center text-white ">
+
+  <div class="relative z-10 w-full max-w-5xl flex items-center justify-between gap-10 px-6">
+
+    <!-- LEFT SIDE -->
+    <div class="w-1/2 space-y-6">
+      <h1 class="text-6xl font-extrabold tracking-wide leading-tight">
+        SkillPath 
+        <span class="bg-gradient-to-r from-orange-400 to-orange-600 text-transparent bg-clip-text">
+          AI
+        </span>
+      </h1>
+
+      <p class="text-xl text-gray-300 font-light">
+        Your personalized virtual mentor.
+      </p>
+
+      <p class="text-sm text-gray-500 max-w-md">
+        Upload your resume, analyze your skills, and get AI-powered career guidance tailored just for you.
+      </p>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="w-[350px] bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-xl">
+
+      <h2 id="formTitle" class="text-2xl font-bold mb-6 text-center">
+        Welcome Back
+      </h2>
+
+      <!-- LOGIN FORM -->
+      <div id="loginForm">
+
+        <input id="email" type="text" placeholder="Username or Email"
+          class="w-full p-3 mb-4 rounded-lg bg-white/20 placeholder-gray-300 focus:outline-none">
+
+        <input id="password" type="password" placeholder="Password"
+          class="w-full p-3 mb-4 rounded-lg bg-white/20 placeholder-gray-300 focus:outline-none">
+
+        <button onclick="loginUser()"
+          class="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-lg font-semibold hover-scale">
+          Log In
+        </button>
+
+        <p id="errorMsg" class="text-red-400 text-center text-sm mt-3 hidden">
+          Invalid credentials. 
+          <span class="underline cursor-pointer">Forgot password?</span>
+        </p>
+
+        <!-- SWITCH TO SIGNUP -->
+        <p class="text-gray-300 text-center mt-4">
+          Don't have an account?
+          <span id="signupBtn"
+            class="text-orange-400 cursor-pointer hover:underline hover:text-orange-300">
+            Sign Up
+          </span>
+        </p>
+
+      </div>
+
+      <!-- SIGNUP FORM -->
+      <div id="signupForm" class="hidden">
+
+        <input type="text" placeholder="Full Name"
+          class="w-full p-3 mb-4 rounded-lg bg-white/20 placeholder-gray-300 focus:outline-none">
+
+        <input type="email" placeholder="Email"
+          class="w-full p-3 mb-4 rounded-lg bg-white/20 placeholder-gray-300 focus:outline-none">
+
+        <input type="password" placeholder="Password"
+          class="w-full p-3 mb-4 rounded-lg bg-white/20 placeholder-gray-300 focus:outline-none">
+
+        <button class="bg-orange-500 py-3 rounded-lg w-full hover:bg-orange-600 font-semibold hover-scale">
+          Sign Up
+        </button>
+
+        <p onclick="showLogin()" 
+          class="text-gray-300 text-center mt-4">
+          Already have an account? <span class="text-orange-400 cursor-pointer hover:underline hover:text-orange-300">Login</span>
+        </p>
+
+      </div>
+
+      <!-- OR -->
+      <div class="text-center mt-6 text-gray-400">OR</div>
+
+      <!-- GOOGLE -->
+      <button class="w-full mt-4 flex items-center justify-center gap-3 border border-white/30 py-3 rounded-lg hover:bg-white/20 transition hover-scale">
+        <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" class="w-5 h-5">
+        Continue with Google
+      </button>
+
+      <!-- GITHUB -->
+      <button class="w-full mt-3 flex items-center justify-center gap-3 border border-white/30 py-3 rounded-lg hover:bg-white/20 transition hover-scale">
+        <div class="bg-white p-1 rounded-full">
+          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" class="w-4 h-4">
+        </div>
+        Continue with GitHub
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+
+    // LOGIN FUNCTION
+    function loginUser() {
+      let email = document.getElementById("email").value.trim().toLowerCase();
+      let password = document.getElementById("password").value;
+
+      document.getElementById("errorMsg").classList.add("hidden");
+
+      if (email === "admin" && password === "1234") {
+        window.location.href = "index.html";
+      } else {
+        document.getElementById("errorMsg").classList.remove("hidden");
+      }
+    }
+
+    // SWITCH TO SIGNUP
+    document.getElementById("signupBtn").addEventListener("click", function () {
+      document.getElementById("loginForm").classList.add("hidden");
+      document.getElementById("signupForm").classList.remove("hidden");
+
+      document.getElementById("formTitle").innerText = "Welcome";
+    });
+
+    // SWITCH BACK TO LOGIN
+    function showLogin() {
+    document.getElementById("signupForm").classList.add("hidden");
+    document.getElementById("loginForm").classList.remove("hidden");
+
+    document.getElementById("formTitle").innerText = "Welcome Back";
+}
+
+  </script>
+
+</body>
+</html>
