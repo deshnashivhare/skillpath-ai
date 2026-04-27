@@ -1,0 +1,17 @@
+INSERT INTO skills (name, domain_id) VALUES
+('html', 1),
+('html5', 1),
+('css', 1),
+('css3', 1),
+('javascript', 1),
+('js', 1),
+('react', 1),
+('reactjs', 1),
+('node', 2),
+('node.js', 2),
+('express', 2),
+('express.js', 2),
+('mongodb', 2),
+('tailwind', 1),
+('tailwind css', 1),
+('bootstrap', 1);
