@@ -1,1 +1,21 @@
-
+skills_list = [
+    "python",
+    "java",
+    "c",
+    "c++",
+    "machine learning",
+    "deep learning",
+    "data science",
+    "sql",
+    "html",
+    "css",
+    "javascript",
+    "react",
+    "flask",
+    "django",
+    "tensorflow",
+    "pandas",
+    "numpy",
+    "git",
+    "linux"
+]
