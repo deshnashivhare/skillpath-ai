@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
 
+<h1>SkillPath AI Report</h1>
+
+<p><strong>Role:</strong> {{ role }}</p>
+<p><strong>Skill Match:</strong> {{ match }}%</p>
+<p><strong>Job Probability:</strong> {{ probability }}%</p>
+
+<h3>Your Skills</h3>
+<ul>
+{% for s in skills %}
+<li>{{ s }}</li>
+{% endfor %}
+</ul>
+
+<h3>Missing Skills</h3>
+<ul>
+{% for s in missing %}
+<li>{{ s }}</li>
+{% endfor %}
+</ul>
+
+<h3>Companies</h3>
+<ul>
+{% for c in companies %}
+<li>{{ c }}</li>
+{% endfor %}
+</ul>
+
+</body>
+</html>
